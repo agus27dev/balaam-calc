@@ -38,96 +38,192 @@
             <label class="btn btn-outline-dark" for="currIDR">🇮🇩 IDR — Rupiah</label>
             <input type="radio" class="btn-check" name="currency" id="currMXN" value="MXN">
             <label class="btn btn-outline-dark" for="currMXN">🇲🇽 MXN — Peso</label>
+            <input type="radio" class="btn-check" name="currency" id="currUSD" value="USD">
+            <label class="btn btn-outline-dark" for="currUSD">🇺🇸 USD — Dollar</label>
           </div>
         </div>
       </section>
 
-      <!-- ---- Base Parameters ---- -->
-      <section id="baseParamsSection" class="card section-card mb-3">
+      <!-- ---- Calculation Mode ---- -->
+      <section class="card section-card mb-3">
         <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="section-label mb-0">Base Parameters</h6>
-            <br>
-            <button id="lockBtn" class="btn btn-sm btn-outline-dark" type="button">
-              <i class="bi bi-unlock"></i> Lock
-            </button>
-          </div>
-
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <label for="exchangeRate" class="form-label">Exchange Rate <span class="currency-label">IDR</span> / USD</label>
-              <div class="input-group">
-                <span class="input-group-text currency-symbol">IDR</span>
-                <input type="text" inputmode="decimal" class="form-control base-input" id="exchangeRate">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <label for="silverPrice" class="form-label">Silver Price per Gram</label>
-              <div class="input-group">
-                <span class="input-group-text currency-symbol">IDR</span>
-                <input type="text" inputmode="decimal" class="form-control base-input" id="silverPrice">
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <label for="tariff" class="form-label">Custom Tariff (%)</label>
-              <div class="input-group">
-                <input type="number" inputmode="decimal" class="form-control base-input" id="tariff" min="0" max="100" step="any">
-                <span class="input-group-text">%</span>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <label for="shipping" class="form-label">Shipping</label>
-              <div class="input-group">
-                <span class="input-group-text">USD</span>
-                <input type="text" inputmode="decimal" class="form-control base-input" id="shipping">
-              </div>
-            </div>
-          </div>
-
-          <div id="lockStatus" class="form-text mt-3">
-            <i class="bi bi-info-circle me-1"></i> Set your base parameters, then lock them for repeated calculations.
+          <h6 class="section-label">Calculation Mode</h6>
+          <div class="btn-group w-100 mt-2" role="group">
+            <input type="radio" class="btn-check" name="calcMode" id="modeStandard" value="standard" checked>
+            <label class="btn btn-outline-dark" for="modeStandard"><i class="bi bi-calculator me-1"></i> Standard</label>
+            <input type="radio" class="btn-check" name="calcMode" id="modeFixed" value="fixed">
+            <label class="btn btn-outline-dark" for="modeFixed"><i class="bi bi-tag me-1"></i> Fixed Price</label>
           </div>
         </div>
       </section>
 
-      <!-- ---- Variant Inputs ---- -->
-      <section id="variantSection" class="card section-card mb-3">
-        <div class="card-body">
-          <h6 class="section-label">Jewelry Details</h6>
-          <br>
+      <!-- ================ STANDARD MODE ================ -->
+      <div id="standardMode">
 
-          <div class="row g-3">
-            <div class="col-sm-6">
-              <label for="weight" class="form-label">Weight</label>
-              <div class="input-group">
-                <input type="text" inputmode="decimal" class="form-control" id="weight">
-                <span class="input-group-text">gram</span>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <label for="labour" class="form-label">Labour</label>
-              <div class="input-group">
-                <span class="input-group-text currency-symbol">IDR</span>
-                <input type="text" inputmode="decimal" class="form-control" id="labour">
-              </div>
-            </div>
-          </div>
-
-          <!-- Stones -->
-          <div class="mt-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <label class="form-label mb-0 fw-semibold">Stones <span class="text-muted fw-normal">(optional)</span></label>
-              <button id="addStoneBtn" class="btn btn-sm btn-dark" type="button">
-                <i class="bi bi-plus-lg"></i> Add Stone
+        <!-- ---- Base Parameters ---- -->
+        <section id="baseParamsSection" class="card section-card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="section-label mb-0">Base Parameters</h6>
+              <button id="lockBtn" class="btn btn-sm btn-outline-dark" type="button">
+                <i class="bi bi-unlock"></i> Lock
               </button>
             </div>
 
-            <div id="stonesContainer">
-              <!-- stone rows injected here -->
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="exchangeRate" class="form-label">Exchange Rate <span class="currency-label">IDR</span> / USD</label>
+                <div class="input-group">
+                  <span class="input-group-text currency-symbol">IDR</span>
+                  <input type="text" inputmode="decimal" class="form-control base-input" id="exchangeRate">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="silverPrice" class="form-label">Silver Price per Gram</label>
+                <div class="input-group">
+                  <span class="input-group-text currency-symbol">IDR</span>
+                  <input type="text" inputmode="decimal" class="form-control base-input" id="silverPrice">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="tariff" class="form-label">Custom Tariff (%)</label>
+                <div class="input-group">
+                  <input type="number" inputmode="decimal" class="form-control base-input" id="tariff" min="0" max="100" step="any">
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="shipping" class="form-label">Shipping</label>
+                <div class="input-group">
+                  <span class="input-group-text">USD</span>
+                  <input type="text" inputmode="decimal" class="form-control base-input" id="shipping">
+                </div>
+              </div>
+            </div>
+
+            <div id="lockStatus" class="form-text mt-3">
+              <i class="bi bi-info-circle me-1"></i> Set your base parameters, then lock them for repeated calculations.
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- ---- Variant Inputs ---- -->
+        <section id="variantSection" class="card section-card mb-3">
+          <div class="card-body">
+            <h6 class="section-label">Jewelry Details</h6>
+            <br>
+
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="weight" class="form-label">Weight</label>
+                <div class="input-group">
+                  <input type="text" inputmode="decimal" class="form-control" id="weight">
+                  <span class="input-group-text">gram</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="labour" class="form-label">Labour</label>
+                <div class="input-group">
+                  <span class="input-group-text currency-symbol">IDR</span>
+                  <input type="text" inputmode="decimal" class="form-control" id="labour">
+                </div>
+              </div>
+            </div>
+
+            <!-- Stones -->
+            <div class="mt-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="form-label mb-0 fw-semibold">Stones <span class="text-muted fw-normal">(optional)</span></label>
+                <button id="addStoneBtn" class="btn btn-sm btn-dark" type="button">
+                  <i class="bi bi-plus-lg"></i> Add Stone
+                </button>
+              </div>
+
+              <div id="stonesContainer">
+                <!-- stone rows injected here -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /standardMode -->
+
+      <!-- ================ FIXED PRICE MODE ================ -->
+      <div id="fixedMode" class="d-none">
+
+        <!-- ---- Fixed Base Parameters ---- -->
+        <section id="fixedBaseSection" class="card section-card mb-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="section-label mb-0">Base Parameters</h6>
+              <button id="fixedLockBtn" class="btn btn-sm btn-outline-dark" type="button">
+                <i class="bi bi-unlock"></i> Lock
+              </button>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="fixedExchangeRate" class="form-label">Exchange Rate <span class="currency-label">IDR</span> / USD</label>
+                <div class="input-group">
+                  <span class="input-group-text currency-symbol">IDR</span>
+                  <input type="text" inputmode="decimal" class="form-control fixed-base-input" id="fixedExchangeRate">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="fixedTariff" class="form-label">Custom Tariff (%)</label>
+                <div class="input-group">
+                  <input type="number" inputmode="decimal" class="form-control fixed-base-input" id="fixedTariff" min="0" max="100" step="any">
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <label for="fixedShipping" class="form-label">Shipping</label>
+                <div class="input-group">
+                  <span class="input-group-text">USD</span>
+                  <input type="text" inputmode="decimal" class="form-control fixed-base-input" id="fixedShipping">
+                </div>
+              </div>
+            </div>
+
+            <div id="fixedLockStatus" class="form-text mt-3">
+              <i class="bi bi-info-circle me-1"></i> Set your base parameters, then lock them for repeated calculations.
+            </div>
+          </div>
+        </section>
+
+        <!-- ---- Fixed Price Inputs ---- -->
+        <section class="card section-card mb-3">
+          <div class="card-body">
+            <h6 class="section-label">Fixed Price Details</h6>
+            <br>
+
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="fixedPrice" class="form-label">Fixed Price</label>
+                <div class="input-group">
+                  <span class="input-group-text currency-symbol">IDR</span>
+                  <input type="text" inputmode="decimal" class="form-control" id="fixedPrice">
+                </div>
+              </div>
+            </div>
+
+            <!-- Stones -->
+            <div class="mt-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="form-label mb-0 fw-semibold">Stones <span class="text-muted fw-normal">(optional)</span></label>
+                <button id="fixedAddStoneBtn" class="btn btn-sm btn-dark" type="button">
+                  <i class="bi bi-plus-lg"></i> Add Stone
+                </button>
+              </div>
+
+              <div id="fixedStonesContainer">
+                <!-- stone rows injected here -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /fixedMode -->
 
       <!-- ---- Calculate Button ---- -->
       <div class="d-grid gap-2 mb-3">

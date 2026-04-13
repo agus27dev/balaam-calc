@@ -75,14 +75,17 @@ body {
 }
 
 /* ---- Locked State ---- */
-#baseParamsSection.locked {
+#baseParamsSection.locked,
+#fixedBaseSection.locked {
   border-color: var(--lock-border);
   background: var(--lock-bg);
 }
-#baseParamsSection.locked .card-body {
+#baseParamsSection.locked .card-body,
+#fixedBaseSection.locked .card-body {
   background: var(--lock-bg);
 }
-#baseParamsSection.locked .base-input {
+#baseParamsSection.locked .base-input,
+#fixedBaseSection.locked .fixed-base-input {
   background: #e9ecef;
   cursor: not-allowed;
 }
