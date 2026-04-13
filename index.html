@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Balaam — Silver Jewelry Price Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ======== MAIN APP ======== -->
+  <div id="mainApp">
+
+    <!-- Header -->
+    <nav class="navbar navbar-dark bg-dark sticky-top">
+      <div class="container">
+        <span class="navbar-brand d-flex align-items-center gap-2">
+            BALAAM
+        </span>
+        <small class="text-white-50 d-none d-sm-inline">Silver Jewelry Price Calculator</small>
+      </div>
+    </nav>
+
+    <div class="container py-4">
+
+      <!-- ---- Currency Selection ---- -->
+      <section class="card section-card mb-3">
+        <div class="card-body">
+          <h6 class="section-label">Currency</h6>
+          <br>
+          <div class="btn-group w-100" role="group">
+            <input type="radio" class="btn-check" name="currency" id="currIDR" value="IDR" checked>
+            <label class="btn btn-outline-dark" for="currIDR">🇮🇩 IDR — Rupiah</label>
+            <input type="radio" class="btn-check" name="currency" id="currMXN" value="MXN">
+            <label class="btn btn-outline-dark" for="currMXN">🇲🇽 MXN — Peso</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Base Parameters ---- -->
+      <section id="baseParamsSection" class="card section-card mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="section-label mb-0">Base Parameters</h6>
+            <br>
+            <button id="lockBtn" class="btn btn-sm btn-outline-dark" type="button">
+              <i class="bi bi-unlock"></i> Lock
+            </button>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="exchangeRate" class="form-label">Exchange Rate <span class="currency-label">IDR</span> / USD</label>
+              <div class="input-group">
+                <span class="input-group-text currency-symbol">IDR</span>
+                <input type="text" inputmode="decimal" class="form-control base-input" id="exchangeRate">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="silverPrice" class="form-label">Silver Price per Gram</label>
+              <div class="input-group">
+                <span class="input-group-text currency-symbol">IDR</span>
+                <input type="text" inputmode="decimal" class="form-control base-input" id="silverPrice">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="tariff" class="form-label">Custom Tariff (%)</label>
+              <div class="input-group">
+                <input type="number" inputmode="decimal" class="form-control base-input" id="tariff" min="0" max="100" step="any">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="shipping" class="form-label">Shipping</label>
+              <div class="input-group">
+                <span class="input-group-text">USD</span>
+                <input type="text" inputmode="decimal" class="form-control base-input" id="shipping">
+              </div>
+            </div>
+          </div>
+
+          <div id="lockStatus" class="form-text mt-3">
+            <i class="bi bi-info-circle me-1"></i> Set your base parameters, then lock them for repeated calculations.
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Variant Inputs ---- -->
+      <section id="variantSection" class="card section-card mb-3">
+        <div class="card-body">
+          <h6 class="section-label">Jewelry Details</h6>
+          <br>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="weight" class="form-label">Weight</label>
+              <div class="input-group">
+                <input type="text" inputmode="decimal" class="form-control" id="weight">
+                <span class="input-group-text">gram</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <label for="labour" class="form-label">Labour</label>
+              <div class="input-group">
+                <span class="input-group-text currency-symbol">IDR</span>
+                <input type="text" inputmode="decimal" class="form-control" id="labour">
+              </div>
+            </div>
+          </div>
+
+          <!-- Stones -->
+          <div class="mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="form-label mb-0 fw-semibold">Stones <span class="text-muted fw-normal">(optional)</span></label>
+              <button id="addStoneBtn" class="btn btn-sm btn-dark" type="button">
+                <i class="bi bi-plus-lg"></i> Add Stone
+              </button>
+            </div>
+
+            <div id="stonesContainer">
+              <!-- stone rows injected here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---- Calculate Button ---- -->
+      <div class="d-grid gap-2 mb-3">
+        <button id="calcBtn" class="btn btn-dark btn-lg">
+            Calculate
+        </button>
+      </div>
+
+      <!-- ---- Output ---- -->
+      <section id="outputSection" class="card section-card output-card mb-3 d-none">
+        <div class="card-body">
+          <h6 class="section-label"><i class="bi bi-receipt me-1"></i> Results</h6>
+
+          <div class="result-row">
+            <span class="result-label">Production Cost (<span class="currency-code">IDR</span>)</span>
+            <span id="resultLocal" class="result-value">—</span>
+          </div>
+          <hr class="my-2">
+          <div class="result-row">
+            <span class="result-label">Production Cost (USD)</span>
+            <span id="resultUSD" class="result-value">—</span>
+          </div>
+          <hr class="my-2">
+          <div class="result-row">
+            <span class="result-label">Wholesale Price (USD)</span>
+            <span id="resultWholesale" class="result-value result-highlight">—</span>
+          </div>
+
+          <div class="d-grid mt-4">
+            <button id="clearBtn" class="btn btn-outline-dark">
+              <i class="bi bi-arrow-counterclockwise me-1"></i> Clear &amp; New Calculation
+            </button>
+          </div>
+        </div>
+      </section>
+    </div><!-- /container -->
+  </div><!-- /mainApp -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

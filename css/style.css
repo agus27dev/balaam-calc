@@ -1,0 +1,207 @@
+/* ============================
+   Balaam — Monochrome Elegant
+   ============================ */
+
+:root {
+  --bg: #f5f5f5;
+  --card-bg: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --border: #dee2e6;
+  --accent: #212529;
+  --lock-bg: #f0f4f0;
+  --lock-border: #b5c7b5;
+  --shadow: 0 1px 3px rgba(0,0,0,.08);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,.1);
+}
+
+/* ---- Base ---- */
+html { font-size: 15px; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Password Overlay ---- */
+.password-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  padding: 1rem;
+}
+.password-card {
+  background: var(--card-bg);
+  border-radius: .75rem;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--shadow-lg);
+}
+.gate-icon {
+  font-size: 2.5rem;
+  color: var(--accent);
+}
+.gate-title {
+  font-weight: 700;
+  letter-spacing: .25em;
+  margin: .5rem 0 0;
+  font-size: 1.6rem;
+}
+.gate-subtitle {
+  color: var(--text-secondary);
+  font-size: .85rem;
+  margin: .25rem 0 0;
+}
+
+/* ---- Section Cards ---- */
+.section-card {
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.section-label {
+  font-weight: 600;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-secondary);
+}
+
+/* ---- Locked State ---- */
+#baseParamsSection.locked {
+  border-color: var(--lock-border);
+  background: var(--lock-bg);
+}
+#baseParamsSection.locked .card-body {
+  background: var(--lock-bg);
+}
+#baseParamsSection.locked .base-input {
+  background: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* ---- Stone Row ---- */
+.stone-row {
+  background: #fafafa;
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  padding: .75rem;
+  margin-bottom: .5rem;
+  position: relative;
+  animation: fadeSlide .2s ease;
+}
+.stone-row .stone-label {
+  font-weight: 600;
+  font-size: .8rem;
+  color: var(--text-secondary);
+  margin-bottom: .35rem;
+}
+.stone-remove {
+  position: absolute;
+  top: .35rem;
+  right: .5rem;
+  border: none;
+  background: none;
+  color: #aaa;
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: .15rem .35rem;
+  border-radius: .25rem;
+  transition: color .15s, background .15s;
+}
+.stone-remove:hover {
+  color: #dc3545;
+  background: #fde8ea;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Output ---- */
+.output-card {
+  border-color: var(--accent);
+  border-width: 2px;
+}
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .35rem 0;
+}
+.result-label {
+  font-size: .85rem;
+  color: var(--text-secondary);
+}
+.result-value {
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+.result-highlight {
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+/* ---- Buttons ---- */
+.btn-dark {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.btn-dark:hover,
+.btn-dark:focus {
+  background: #343a40;
+  border-color: #343a40;
+}
+.btn-outline-dark:hover,
+.btn-outline-dark:focus {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Currency toggle active */
+.btn-check:checked + .btn-outline-dark {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---- Form overrides ---- */
+.form-control:focus,
+.form-select:focus {
+  border-color: #adb5bd;
+  box-shadow: 0 0 0 .2rem rgba(33,37,41,.12);
+}
+.input-group-text {
+  background: #f8f9fa;
+  border-color: var(--border);
+  font-size: .85rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 575.98px) {
+  html { font-size: 14px; }
+  .password-card { padding: 2rem 1.25rem; }
+  .container { padding-left: .75rem; padding-right: .75rem; }
+  .result-value { font-size: .95rem; }
+  .result-highlight { font-size: 1.1rem; }
+}
+
+/* ---- Misc ---- */
+.d-none { display: none !important; }
+
+/* Lock button states */
+#lockBtn.locked {
+  background: var(--accent);
+  color: #fff;
+}
