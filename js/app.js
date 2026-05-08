@@ -316,7 +316,7 @@ $(function () {
     var A = fixedPrice + stonesTotal;
     var prodLocal = A + (A * (tariff / 100)) + (shipping * rate);
     var prodUSD = prodLocal / rate;
-    var wholesale = prodUSD / 3;
+    var wholesale = prodUSD * 3;
 
     showResults(prodLocal, prodUSD, wholesale);
   }
